@@ -175,9 +175,11 @@ section.resume-section .resume-item .resume-date {
   }
 }
 
+/* 
+// old orange styling
 .bg-primary {
   background-color: #BD5D38 !important;
-}
+} 
 
 .text-primary {
   color: #BD5D38 !important;
@@ -189,4 +191,20 @@ a {
 
 a:hover, a:focus, a:active {
   color: #824027;
+} */
+
+.bg-primary {
+  background-color: rgb(2, 94, 180) !important;
+}
+
+.text-primary {
+  color: rgb(2, 94, 180) !important;
+}
+
+a {
+  color: rgb(2, 94, 180);
+}
+
+a:hover, a:focus, a:active {
+  color: rgb(1, 72, 139);
 }
