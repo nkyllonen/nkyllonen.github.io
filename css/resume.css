@@ -175,12 +175,24 @@ section.resume-section .resume-item .resume-date {
   }
 }
 
+<<<<<<< Updated upstream
 /* 
 // old orange styling
 .bg-primary {
   background-color: #BD5D38 !important;
 } 
+=======
+/* .bg-primary {
+  background-color: #BD5D38 !important;
+} */
 
+.bg-primary {
+  background-color: rgb(2, 94, 180) !important;
+}
+>>>>>>> Stashed changes
+
+/* 
+// old orange styling
 .text-primary {
   color: #BD5D38 !important;
 }
