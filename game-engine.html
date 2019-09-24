@@ -91,9 +91,9 @@
 
                 <div class="subheading mb-3">Gameplay / Game Design</div>
                 <p>
-                  In this simple game, built in Processing, the player uses moves the green slider
+                  In this simple game, built in Processing, the player moves the green slider
                   left and right to pop as many colorful balloons as possible and gain the most points.
-                  One point is gained for every colorful balloon, while one point is lost for every
+                  One point is gained for every good colorful balloon, while one point is lost for every
                   evil black balloon that is popped. This score is presented along with the current level
                   in the bottom left corner, as shown in <a href="#hw1-fig1">Figure 1</a>.
                 </p>
@@ -119,6 +119,10 @@
                     </code>
                   </pre>
                 </p>
+                <p>
+                    <b>Snippet 1:</b> Levelup parameter adjustments.
+                </p>
+
                 <p>
                   There were quite a few features I had in mind while developing this game. I added to
                   them as I went, but from the beginning, I hashed out two feature lists: basic features
@@ -168,7 +172,7 @@
                   the overall runtime of the game. However, to myself and other OOP developers, the
                   boost of understanding and organization seems very much worth it when handling
                   the code. Understandability of the code is very much boosted by containers such as
-                  Object and it's children,
+                  Object and its children,
                   <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/balloon.pde">Balloon</a>
                   and <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/slider.pde">Slider</a>.
                 </p>
@@ -192,6 +196,9 @@
                         }
                     </code>
                   </pre>
+                </p>
+                <p>
+                    <b>Snippet 2:</b> Object class.
                 </p>
 
                 <p>
@@ -224,6 +231,9 @@
                     </code>
                   </pre>
                 </p>
+                <p>
+                    <b>Snippet 3:</b> Balloon reaction to collision checking.
+                </p>
 
                 <p>
                   After much thought and spending a good amount of time not only considering, but
@@ -240,9 +250,165 @@
                     this gridding approach.
                 </p>
 
+                <p>
+                  If given more time, instead of using ArrayLists that shrink and grow forever,
+                  I would instead use fixed length arrays. ArrayLists, although fun, are not the
+                  most efficient because of their conveniently modifiable length. If a max number
+                  of balloons was decided upon and I made sure that balloons which were popped
+                  or which were lost respawned, therefore in essense living forever, I believe
+                  there would be more of a computational improvement than fully implementing
+                  and using a gridding system.
+                </p>
+
                 <div class="subheading mb-3">Game Engine Analysis</div>
                 <p>
-                  
+                  Although Processing does a good job of being an accessible "gateway" into graphics,
+                  an aspect that would've saved me time from the beginning would be something
+                  akin to my Object class. Having a pre-built container which knew a bit about
+                  how it could be displayed/rendered would've expedited the first few things
+                  I did for this assignment, which was build and design my Object and Balloon classes.
+                </p>
+
+                <p>
+                  Another, more advanced addition, which would have nullified my earlier discussions
+                  about collision testing, would be some sort of pre-built collider which understood
+                  when it overlapped with other objects. Either this collider itself would already
+                  contain collision checking code or another object, a sort of collider manager,
+                  would contain the collision algorithms. The collider manager could then be the
+                  one that checks to see if it's colliders are overlapping. Since games all require
+                  the ability to know if two things are touching (be it if your mouse click landed
+                  in the right place or if your character's arrow was able to hit
+                  the enemy), a built-in collision system would be incredibly useful for developing
+                  games.
+                </p>
+
+                <p>
+                  In my game specifically, the state is stored within the global variables I declared
+                  within my
+                  <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/config.pde">config.pde</a>,
+                  as shown below. How these variables interact within my game loop are the core of
+                  how this game functions. My game loop can be broken down as follows
+                  (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L23">
+                  pop.pde lines 23-105</a>):
+                  <ol>
+                    <li>
+                      Determine if I should be displaying a level up splash screen.
+                    </li>
+                    <li>
+                      Determine if I should be spawning new balloons.
+                    </li>
+                    <li>
+                      Loop through every balloon in the world.
+                        <ul>
+                          <li>
+                            Move it. Remove it if it's off the screen. Check if it has collided with
+                            the slider. Draw it.
+                          </li>
+                        </ul>
+                    </li>
+                    <li>
+                      Loop through every animation.
+                      <ul>
+                          <li>
+                            Remove it if it's done. Draw it.
+                          </li>
+                        </ul>
+                    </li>
+                    <li>
+                      Draw the slider and stats.
+                    </li>
+                    <li>
+                      Check for a level update and adjust accordingly.
+                    </li>
+                  </ol>
+                </p>
+
+                <p>
+                  <pre>
+                      <code class="Processing" id="hw1-code4">
+                        // Colors
+                        int BG_COLOR = 100;
+                        int[][] COLORS = {{255,0,0},{102,102,255},{0, 153, 153},{255,102,178},{255,255,0},{102,0,102},{153,0,76}};
+                        
+                        // Balloons
+                        int MIN_BALLOONS = 1;
+                        int MAX_SPEED = 150;
+                        int SPAWN_RATE = 700;
+                        int lastSpawn = 0;
+                        ArrayList<Balloon> balloons = new ArrayList<Balloon>();
+                        PImage[] popFrames;
+                        ArrayList<Animation> animations = new ArrayList<Animation>();
+                        
+                        // Evil balloons
+                        Balloon[] enemies = new Balloon[5];
+                        float ENEMY_SPAWN_CHANCE = 0.05;
+                        PImage[] hotFrames;
+                        
+                        // Spatial Data Struture(s)
+                        //Node root = new Node(width/2.0);
+                        Grid grid;
+                        int GRIDCELL_WIDTH = 100;
+                        int GRIDCELL_HEIGHT = 100;
+                        
+                        // Player
+                        Slider brick;
+                        int brickWidth = 50;
+                        int brickHeight = 10;
+                        int score = 0;
+                        int level = 1;
+                        boolean levelUpScreen = false;
+                        int splashStart = 0;
+                      </code>
+                  </pre>
+                </p>
+                <p>
+                    <b>Snippet 4:</b> Game loop.
+                </p>
+
+                <p>
+                  During the entire game, and therefore during this game loop, Processing is checking for
+                  key press events. These asynchronously interrupt the game to enter the following
+                  function within
+                  <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/action.pde#L5">
+                  action.pde</a>, lines 5-10. This asynchronous interruption triggers the slider to
+                  check to see if either the left or right arrow keys have been pressed so that
+                  the slider's position can be adjusted accordingly.
+                </p>
+
+                <p>
+                  <pre>
+                    <code class="Processing" id="hw1-code5">
+                          // handle keyboard presses
+                        void keyPressed() {
+                          if (key == CODED) {
+                            brick.move(keyCode);
+                          }
+                        }
+                    </code>
+                  </pre>
+                </p>
+                <p>
+                    <b>Snippet 5:</b> Key press handler.
+                </p>
+
+                <p>
+                  The two big "non-moving pieces" are my balloons and animations ArrayLists. As I have already
+                  discussed the balloons and they seem fairly self-explanatory, I will wrap this report up
+                  by discussing my last feature: incorporating animations (i.e. displaying gifs). I looked
+                  to the Processing Tutorial page <a href="https://processing.org/examples/animatedsprite.html">
+                  Animated Sprite</a> for code and inspiration.
+                </p>
+
+                <p>
+                  I started by breaking my gifs into individual frames and storing them globally (popFrames
+                  and hotFrames above). When an event occurred which would warrant an animation (the slider
+                  colliding with a balloon) a new Animation object would be created at that location and
+                  told which frames it needed to display. Therefore, all I needed to do was keep track of
+                  which animations were still active drawing frames so that I could draw those frames to
+                  the screen. Once all of the frames had been displayed, I then deleted that Animation object.
+                  My animations array is therefore almost identical to my balloons array: both contained
+                  the active Balloons and Animations so that they could be iterated through and properly
+                  rendered.
                 </p>
 
                 <div class="subheading mb-3">Preview Video</div>
@@ -254,7 +420,7 @@
                   </iframe>
                 </p>
 
-                <div class="subheading mb-3">Images</div>
+                <div class="subheading mb-3">Screenshots</div>
                 <p>
                     <!-- TODO: make these images clickable, so they expand -->
                     <img src="img/8980/hw1-typical.png" width="200">
