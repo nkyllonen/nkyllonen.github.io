@@ -20,7 +20,9 @@
 
   <!-- Custom styles for this template -->
   <link href="css/mystyle.css" rel="stylesheet">
-
+  <!-- <link rel="stylesheet" href="node_modules/highlight.js/styles/default.css">
+  <script src="/path/to/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> -->
 
 </head>
 
@@ -98,6 +100,31 @@
                   the levels increase one notch for every 10 points earned. Successive levels increase
                   three of the game parameters: maximum balloon spawning speed, slider speed, and the
                   chance a newly spawned balloon will be an evil balloon.
+                </p>
+                <p>
+                  <pre>
+                    <code class="Processing">
+                        // The statements in the setup() function 
+                        // execute once when the program begins
+                        void setup() {
+                          size(800, 500);     // Size must be the first statement
+                          stroke(255);        // Set line drawing color to white
+                          frameRate(30);
+                          imageMode(CENTER);  // image() will use the center
+                        
+                          brick = new Slider(width/2, 2*brickHeight, brickWidth, brickHeight);
+                          popFrames = loadFrames("./images/sparkles0.5/pop-sparkles",8);
+                          hotFrames = loadFrames("./images/hot-0.5/hot", 11);
+                        }
+
+
+                        // check score and update level
+                        level = score / 10 + 1;
+                        MAX_SPEED = 150 + level * 10;
+                        brick.speed = 5 + level;
+                        ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;
+                    </code>
+                  </pre>
                 </p>
     
                 <div class="subheading mb-3">Algorithmic Discussion</div>
