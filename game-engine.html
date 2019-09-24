@@ -82,11 +82,13 @@
                 </div>
 
                 <p>
-                    <img src="img/8980/hw1-typical.png" width="600" id="hw1-fig1">
+                    <img src="img/8980/hw1-typical.png"
+                    width="600" id="hw1-fig1" class="center">
                 </p>
                 <p>
                     <b>Figure 1:</b> A typical Level 1 screen.
                 </p>
+
                 <div class="subheading mb-3">Gameplay / Game Design</div>
                 <p>
                   In this simple game, built in Processing, the player uses moves the green slider
@@ -96,28 +98,19 @@
                   in the bottom left corner, as shown in <a href="#hw1-fig1">Figure 1</a>.
                 </p>
                 <p>
-                  As you gain points, you with move onto more difficult levels. At this point in time,
+                  As you gain points, you with move onto more difficult levels. Currently,
                   the levels increase one notch for every 10 points earned. Successive levels increase
                   three of the game parameters: maximum balloon spawning speed, slider speed, and the
-                  chance a newly spawned balloon will be an evil balloon.
+                  chance a newly spawned balloon will be an evil balloon. Therefore for every new
+                  level you face, not only are the balloons harder to pop, the slider is able to
+                  travel more quickly. This is the only power-up currently implemented. These values
+                  are adjusted as shown below
+                  (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L100">
+                    pop.pde lines 100-104</a>).
                 </p>
                 <p>
                   <pre>
-                    <code class="Processing">
-                        // The statements in the setup() function 
-                        // execute once when the program begins
-                        void setup() {
-                          size(800, 500);     // Size must be the first statement
-                          stroke(255);        // Set line drawing color to white
-                          frameRate(30);
-                          imageMode(CENTER);  // image() will use the center
-                        
-                          brick = new Slider(width/2, 2*brickHeight, brickWidth, brickHeight);
-                          popFrames = loadFrames("./images/sparkles0.5/pop-sparkles",8);
-                          hotFrames = loadFrames("./images/hot-0.5/hot", 11);
-                        }
-
-
+                    <code class="Processing" id="hw1-code1">
                         // check score and update level
                         level = score / 10 + 1;
                         MAX_SPEED = 150 + level * 10;
@@ -126,20 +119,151 @@
                     </code>
                   </pre>
                 </p>
+                <p>
+                  There were quite a few features I had in mind while developing this game. I added to
+                  them as I went, but from the beginning, I hashed out two feature lists: basic features
+                  and more farfetched features. These I placed into my Trello board, as shown in
+                  <a href="#hw1-fig2">Figure 2</a> and <a href="#hw1-fig3">Figure 3</a>.
+                </p>
+                <p>
+                    <img src="img/8980/hw1-basic-features.png"
+                    width="500" id="hw1-fig2" class="center">
+                </p>
+                <p>
+                    <b>Figure 2:</b> Basic features.
+                </p>
+                <p>
+                    <img src="img/8980/hw1-next-features.png"
+                    width="500" id="hw1-fig3" class="center">
+                </p>
+                <p>
+                    <b>Figure 3:</b> More complex features.
+                </p>
+                <p>
+                  The biggest feature I tried to implement for this assignment was the use of a
+                  spatial data structure for collision testing (my first task within my "Next
+                  Steps" features list above). Despite the goal of using such a structure being
+                  to improve performance, after much thought and much work on implementing this
+                  feature, I don't believe it would've actually helped improve my gameplay.
+                  Although I still wish to pursue this feature, other features that are listed
+                  would've more easily accomplished the task of boosting gameplay, such as
+                  adding some sort of missiles or more complicated balloon movement.
+                </p>
+
+                <p>
+                    <img src="img/8980/hw1-cute-explosion.png"
+                    width="600" id="hw1-fig4" class="center">
+                </p>
+                <p>
+                    <b>Figure 4:</b> My most fun feature to implement (the balloon explosion animation).
+                </p>
     
                 <div class="subheading mb-3">Algorithmic Discussion</div>
+                <p>
+                  In developing this game, I allowed my strong Object-Oriented Programming (OOP)
+                  tendencies to lead my algorithmic and technical decisions. The strongest example
+                  of this is in my (ideally abstract) Object class, shown below
+                  (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/object.pde">object.pde</a>).
+                  This is a stubby container class. There is no functionality and it most probably hurts
+                  the overall runtime of the game. However, to myself and other OOP developers, the
+                  boost of understanding and organization seems very much worth it when handling
+                  the code. Understandability of the code is very much boosted by containers such as
+                  Object and it's children,
+                  <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/balloon.pde">Balloon</a>
+                  and <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/slider.pde">Slider</a>.
+                </p>
+
+                <p>
+                  <pre>
+                    <code class="Processing" id="hw1-code2">
+                        class Object {
+                          // member variables
+                          PVector position;
+                          PVector rgb = new PVector(0, 102, 50);
+                          float speed = 75; // pixels/second
+                          int lastSpawn = 0;
+                        
+                          Object(PVector pos, int t) {
+                            position = pos;
+                            lastSpawn = t;
+                          }
+                        
+                          void display() {}
+                        }
+                    </code>
+                  </pre>
+                </p>
+
+                <p>
+                  From a computational perspective, a bottleneck is my collision testing. Since I
+                  am very much aware of the existence of this bottleneck in a majority of graphics
+                  programs, I wanted to put some time into building a spatial data structure, as
+                  mentioned above. My first approach, and the one which is currently still being
+                  used, is a brute force approach. My game loop checks during every frame for
+                  collisions between the slider and each balloon, shown in the code snippet below
+                  (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L57">
+                    pop.pde lines 57-70</a>).
+                </p>
+
+                <p>
+                  <pre>
+                    <code class="Processing" id="hw1-code3">
+                        // if this balloon collides with the slider
+                        if (b.checkCollision(brick)) {        
+                          if (!b.evil) {
+                            animations.add(new Animation(b.position.copy(), popFrames));
+                            score++;
+                          }
+                          else {
+                            animations.add(new Animation(b.position.copy(), hotFrames));
+                            score--;
+                          }
+                  
+                          balloons.remove(i);
+                          continue;
+                    </code>
+                  </pre>
+                </p>
+
+                <p>
+                  After much thought and spending a good amount of time not only considering, but
+                  also attempting to integrate a spatial data structure, I decided on a gridding
+                  approach which would in a sense, mark which balloons were, at least partially,
+                  in which bins. After much work. I was able to accomplish this much. I created
+                  a <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/grid.pde">
+                    Grid</a> which knew about which balloons overlapped with which GridCells.
+                    However, the more I thought about the complexity, the more I realized that
+                    there would not be a performance benefit over my brute force approach. Both
+                    methods required iterating over all of the balloons and for the grid approach,
+                    there would be extra computation once the grid was built. Because of time
+                    constraints and other responsibilities, I chose not to continue working with
+                    this gridding approach.
+                </p>
 
                 <div class="subheading mb-3">Game Engine Analysis</div>
+                <p>
+                  
+                </p>
 
                 <div class="subheading mb-3">Preview Video</div>
                 <p>
                   <iframe src="https://drive.google.com/file/d/1V3-GrU67a5daKnyP_lA3vEmhXPPNxSW-/preview"
                             width="600"
-                            height="340">
+                            height="340"
+                            class="center">
                   </iframe>
                 </p>
 
+                <div class="subheading mb-3">Images</div>
+                <p>
+                    <!-- TODO: make these images clickable, so they expand -->
+                    <img src="img/8980/hw1-typical.png" width="200">
+                    <img src="img/8980/hw1-cute-explosion.png" width="200">
+                    <img src="img/8980/hw1-hot.png" width="200">
+                </p>
+
               </div>
+
               <div class="resume-date text-md-right">
                 <span class="text-primary">September 2019</span>
               </div>

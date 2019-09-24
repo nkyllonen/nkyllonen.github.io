@@ -191,3 +191,9 @@ a {
 a:hover, a:focus, a:active {
   color: rgb(1, 72, 139);
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
