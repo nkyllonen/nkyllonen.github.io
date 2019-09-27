@@ -109,7 +109,8 @@
                     pop.pde lines 100-104</a>).
                 </p>
                   <pre>
-<code class="Processing" id="hw1-code1">// check score and update level
+<code class="Processing" id="hw1-code1">
+// check score and update level
 level = score / 10 + 1;
 MAX_SPEED = 150 + level * 10;
 brick.speed = 5 + level;
@@ -175,19 +176,20 @@ ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;</code>
 
                 <p>
                   <pre>
-<code class="Processing" id="hw1-code2">class Object {
-// member variables
-PVector position;
-PVector rgb = new PVector(0, 102, 50);
-float speed = 75; // pixels/second
-int lastSpawn = 0;
+<code class="Processing" id="hw1-code2">
+class Object {
+  // member variables
+  PVector position;
+  PVector rgb = new PVector(0, 102, 50);
+  float speed = 75; // pixels/second
+  int lastSpawn = 0;
 
-Object(PVector pos, int t) {
-  position = pos;
-  lastSpawn = t;
-}
+  Object(PVector pos, int t) {
+    position = pos;
+    lastSpawn = t;
+  }
 
-void display() {}
+  void display() {}
 }</code>
                   </pre>
                 </p>
@@ -208,7 +210,8 @@ void display() {}
 
                 <p>
                   <pre>
-<code class="Processing" id="hw1-code3">// if this balloon collides with the slider
+<code class="Processing" id="hw1-code3">
+// if this balloon collides with the slider
 if (b.checkCollision(brick)) {        
   if (!b.evil) {
     animations.add(new Animation(b.position.copy(), popFrames));
@@ -317,7 +320,8 @@ if (b.checkCollision(brick)) {
 
                 <p>
                   <pre>
-<code class="Processing" id="hw1-code4">// Colors
+<code class="Processing" id="hw1-code4">
+// Colors
 int BG_COLOR = 100;
 int[][] COLORS = {{255,0,0},{102,102,255},{0, 153, 153},{255,102,178},{255,255,0},{102,0,102},{153,0,76}};
 
@@ -367,7 +371,8 @@ int splashStart = 0;</code>
 
                 <p>
                   <pre>
-<code class="Processing" id="hw1-code5">// handle keyboard presses
+<code class="Processing" id="hw1-code5">
+// handle keyboard presses
 void keyPressed() {
   if (key == CODED) {
     brick.move(keyCode);
