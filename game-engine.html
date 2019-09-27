@@ -46,7 +46,7 @@
           <a class="nav-link js-scroll-trigger" href="#about">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#hw1">HW1</a>
+          <a class="nav-link js-scroll-trigger" href="#hw1">Balloon Pop</a>
         </li>
       </ul>
     </div>
@@ -73,6 +73,7 @@
     
             <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
               <div class="resume-content">
+                
                 <h3 class="mb-0">HW1 - Game from Scratch</h3>
 
                 <div class="subheading mb-3 social-icons">Source Code:
@@ -81,10 +82,9 @@
                   </a>
                 </div>
 
-                <p>
-                    <img src="img/8980/hw1-typical.png"
-                    width="600" id="hw1-fig1" class="center">
-                </p>
+                <!-- img-fluid makes images responsive to parent container -->
+                <img src="img/8980/hw1-typical.png"
+                      id="hw1-fig1" class="img-fluid">
                 <p>
                     <b>Figure 1:</b> A typical Level 1 screen.
                 </p>
@@ -108,17 +108,13 @@
                   (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L100">
                     pop.pde lines 100-104</a>).
                 </p>
-                <p>
                   <pre>
-                    <code class="Processing" id="hw1-code1">
-                        // check score and update level
-                        level = score / 10 + 1;
-                        MAX_SPEED = 150 + level * 10;
-                        brick.speed = 5 + level;
-                        ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;
-                    </code>
+<code class="Processing" id="hw1-code1">// check score and update level
+level = score / 10 + 1;
+MAX_SPEED = 150 + level * 10;
+brick.speed = 5 + level;
+ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;</code>
                   </pre>
-                </p>
                 <p>
                     <b>Snippet 1:</b> Levelup parameter adjustments.
                 </p>
@@ -131,14 +127,14 @@
                 </p>
                 <p>
                     <img src="img/8980/hw1-basic-features.png"
-                    width="500" id="hw1-fig2" class="center">
+                    width="500" id="hw1-fig2" class="img-fluid">
                 </p>
                 <p>
                     <b>Figure 2:</b> Basic features.
                 </p>
                 <p>
                     <img src="img/8980/hw1-next-features.png"
-                    width="500" id="hw1-fig3" class="center">
+                    width="500" id="hw1-fig3" class="img-fluid">
                 </p>
                 <p>
                     <b>Figure 3:</b> More complex features.
@@ -155,9 +151,7 @@
                 </p>
 
                 <p>
-                    <!-- <img src="img/8980/hw1-cute-explosion.png"
-                    width="600" id="hw1-fig4" class="center"> -->
-                    <img src="img/8980/hw1-pop-sparkles.gif" alt="">
+                    <img src="img/8980/hw1-pop-sparkles.gif" alt="" class="img-fluid">
                 </p>
                 <p>
                     <b>Figure 4:</b> The sparkling gif used when good balloons explode.
@@ -181,22 +175,20 @@
 
                 <p>
                   <pre>
-                    <code class="Processing" id="hw1-code2">
-                        class Object {
-                          // member variables
-                          PVector position;
-                          PVector rgb = new PVector(0, 102, 50);
-                          float speed = 75; // pixels/second
-                          int lastSpawn = 0;
-                        
-                          Object(PVector pos, int t) {
-                            position = pos;
-                            lastSpawn = t;
-                          }
-                        
-                          void display() {}
-                        }
-                    </code>
+<code class="Processing" id="hw1-code2">class Object {
+// member variables
+PVector position;
+PVector rgb = new PVector(0, 102, 50);
+float speed = 75; // pixels/second
+int lastSpawn = 0;
+
+Object(PVector pos, int t) {
+  position = pos;
+  lastSpawn = t;
+}
+
+void display() {}
+}</code>
                   </pre>
                 </p>
                 <p>
@@ -216,21 +208,19 @@
 
                 <p>
                   <pre>
-                    <code class="Processing" id="hw1-code3">
-                        // if this balloon collides with the slider
-                        if (b.checkCollision(brick)) {        
-                          if (!b.evil) {
-                            animations.add(new Animation(b.position.copy(), popFrames));
-                            score++;
-                          }
-                          else {
-                            animations.add(new Animation(b.position.copy(), hotFrames));
-                            score--;
-                          }
-                  
-                          balloons.remove(i);
-                          continue;
-                    </code>
+<code class="Processing" id="hw1-code3">// if this balloon collides with the slider
+if (b.checkCollision(brick)) {        
+  if (!b.evil) {
+    animations.add(new Animation(b.position.copy(), popFrames));
+    score++;
+  }
+  else {
+    animations.add(new Animation(b.position.copy(), hotFrames));
+    score--;
+  }
+
+  balloons.remove(i);
+  continue;</code>
                   </pre>
                 </p>
                 <p>
@@ -327,40 +317,38 @@
 
                 <p>
                   <pre>
-                      <code class="Processing" id="hw1-code4">
-                        // Colors
-                        int BG_COLOR = 100;
-                        int[][] COLORS = {{255,0,0},{102,102,255},{0, 153, 153},{255,102,178},{255,255,0},{102,0,102},{153,0,76}};
-                        
-                        // Balloons
-                        int MIN_BALLOONS = 1;
-                        int MAX_SPEED = 150;
-                        int SPAWN_RATE = 700;
-                        int lastSpawn = 0;
-                        ArrayList<Balloon> balloons = new ArrayList<Balloon>();
-                        PImage[] popFrames;
-                        ArrayList<Animation> animations = new ArrayList<Animation>();
-                        
-                        // Evil balloons
-                        Balloon[] enemies = new Balloon[5];
-                        float ENEMY_SPAWN_CHANCE = 0.05;
-                        PImage[] hotFrames;
-                        
-                        // Spatial Data Struture(s)
-                        //Node root = new Node(width/2.0);
-                        Grid grid;
-                        int GRIDCELL_WIDTH = 100;
-                        int GRIDCELL_HEIGHT = 100;
-                        
-                        // Player
-                        Slider brick;
-                        int brickWidth = 50;
-                        int brickHeight = 10;
-                        int score = 0;
-                        int level = 1;
-                        boolean levelUpScreen = false;
-                        int splashStart = 0;
-                      </code>
+<code class="Processing" id="hw1-code4">// Colors
+int BG_COLOR = 100;
+int[][] COLORS = {{255,0,0},{102,102,255},{0, 153, 153},{255,102,178},{255,255,0},{102,0,102},{153,0,76}};
+
+// Balloons
+int MIN_BALLOONS = 1;
+int MAX_SPEED = 150;
+int SPAWN_RATE = 700;
+int lastSpawn = 0;
+ArrayList<Balloon> balloons = new ArrayList<Balloon>();
+PImage[] popFrames;
+ArrayList<Animation> animations = new ArrayList<Animation>();
+
+// Evil balloons
+Balloon[] enemies = new Balloon[5];
+float ENEMY_SPAWN_CHANCE = 0.05;
+PImage[] hotFrames;
+
+// Spatial Data Struture(s)
+//Node root = new Node(width/2.0);
+Grid grid;
+int GRIDCELL_WIDTH = 100;
+int GRIDCELL_HEIGHT = 100;
+
+// Player
+Slider brick;
+int brickWidth = 50;
+int brickHeight = 10;
+int score = 0;
+int level = 1;
+boolean levelUpScreen = false;
+int splashStart = 0;</code>
                   </pre>
                 </p>
                 <p>
@@ -379,14 +367,12 @@
 
                 <p>
                   <pre>
-                    <code class="Processing" id="hw1-code5">
-                          // handle keyboard presses
-                        void keyPressed() {
-                          if (key == CODED) {
-                            brick.move(keyCode);
-                          }
-                        }
-                    </code>
+<code class="Processing" id="hw1-code5">// handle keyboard presses
+void keyPressed() {
+  if (key == CODED) {
+    brick.move(keyCode);
+  }
+}</code>
                   </pre>
                 </p>
                 <p>
@@ -414,26 +400,26 @@
                 </p>
 
                 <div class="subheading mb-3">Preview Video</div>
-                <p>
-                  <iframe src="https://drive.google.com/file/d/1V3-GrU67a5daKnyP_lA3vEmhXPPNxSW-/preview"
-                            width="600"
-                            height="340"
-                            class="center">
-                  </iframe>
-                </p>
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe class="embed-responsive-item"
+                          src="https://drive.google.com/file/d/1V3-GrU67a5daKnyP_lA3vEmhXPPNxSW-/preview">
+                    </iframe>
+                </div>
 
                 <div class="subheading mb-3">Screenshots</div>
                 <p>
                     <!-- TODO: make these images clickable, so they expand -->
-                    <img src="img/8980/hw1-typical.png" width="200">
-                    <img src="img/8980/hw1-cute-explosion.png" width="200">
-                    <img src="img/8980/hw1-hot.png" width="200">
+                    <img src="img/8980/hw1-typical.png" width="200" class="img-fluid">
+                    <img src="img/8980/hw1-cute-explosion.png" width="200" class="img-fluid">
+                    <img src="img/8980/hw1-hot.png" width="200" class="img-fluid">
                 </p>
 
               </div>
 
               <div class="resume-date text-md-right">
                 <span class="text-primary">September 2019</span>
+              </div>
+
               </div>
             </div>
     
