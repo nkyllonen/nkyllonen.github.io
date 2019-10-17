@@ -101,15 +101,16 @@
                   in the bottom left corner, as shown in <a href="#hw1-fig1">Figure 1</a>.
                 </p>
                 <p>
-                  As you gain points, you with move onto more difficult levels. Currently,
-                  the levels increase one notch for every 10 points earned. Successive levels increase
-                  three of the game parameters: maximum balloon spawning speed, slider speed, and the
-                  chance a newly spawned balloon will be an evil balloon. Therefore for every new
-                  level you face, not only are the balloons harder to pop, the slider is able to
-                  travel more quickly. This is the only power-up currently implemented. These values
-                  are adjusted as shown below
-                  (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L100">
-                    pop.pde lines 100-104</a>).
+                  As you gain points, you move onto more difficult levels. 
+                  Currently, the levels increase one notch for every 10 points 
+                  earned. Successive levels increase three of the game 
+                  parameters: maximum balloon spawning speed, slider speed, and 
+                  the chance a newly spawned balloon will be an evil balloon. 
+                  Therefore, for every new level you face, not only are the 
+                  balloons harder to pop and more likely to be evil, the slider 
+                  is able to travel more quickly. This is the only power-up 
+                  currently implemented. These values are adjusted as shown 
+                  below (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L100"> pop.pde lines 100-104</a>).
                 </p>
                   <pre>
 <code class="Processing" id="hw1-code1">
@@ -120,13 +121,15 @@ brick.speed = 5 + level;
 ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;</code>
                   </pre>
                 <p>
-                    <b>Snippet 1:</b> Levelup parameter adjustments.
+                    <b>Snippet 1:</b> Level-up parameter adjustments.
                 </p>
 
                 <p>
-                  There were quite a few features I had in mind while developing this game. I added to
-                  them as I went, but from the beginning, I hashed out two feature lists: basic features
-                  and more farfetched features. These I placed into my Trello board, as shown in
+                  There were quite a few features I had in mind while 
+                  developing this game. I added to them as I went, but from the 
+                  beginning, I hashed out two feature lists: basic features
+                  and more farfetched features. These I placed into my Trello 
+                  board, as shown in
                   <a href="#hw1-fig2">Figure 2</a> and <a href="#hw1-fig3">Figure 3</a>.
                 </p>
                 <p>
@@ -134,47 +137,50 @@ ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;</code>
                     width="500" id="hw1-fig2" class="img-fluid">
                 </p>
                 <p>
-                    <b>Figure 2:</b> Basic features.
+                    <b>Figure 2:</b> My checklist of basic features.
                 </p>
                 <p>
                     <img src="img/8980/hw1-next-features.png"
                     width="500" id="hw1-fig3" class="img-fluid">
                 </p>
                 <p>
-                    <b>Figure 3:</b> More complex features.
+                    <b>Figure 3:</b> My checklist of more complex features.
                 </p>
                 <p>
-                  The biggest feature I tried to implement for this assignment was the use of a
-                  spatial data structure for collision testing (my first task within my "Next
-                  Steps" features list above). Despite the goal of using such a structure being
-                  to improve performance, after much thought and much work on implementing this
-                  feature, I don't believe it would've actually helped improve my gameplay.
-                  Although I still wish to pursue this feature, other features that are listed
-                  would've more easily accomplished the task of boosting gameplay, such as
-                  adding some sort of missiles or more complicated balloon movement.
+                  The biggest feature I tried to implement for this assignment 
+                  was the use of a spatial data structure for collision testing 
+                  (my first task within my "Next Steps" features list above). 
+                  Despite the goal being to improve performance, after much 
+                  thought and much work on implementation, I decided that the 
+                  gameplay would not actually improve. Although I still wish to 
+                  pursue this feature, other features that are listed above 
+                  would've more easily accomplished the task of boosting 
+                  gameplay, such as adding some sort of missiles or more 
+                  complicated balloon movement.
                 </p>
 
                 <p>
                     <img src="img/8980/hw1-pop-sparkles.gif" alt="" class="img-fluid">
                 </p>
                 <p>
-                    <b>Figure 4:</b> The sparkling gif used when good balloons explode.
-                    My most fun feature to implement.
+                    <b>Figure 4:</b> The sparkling gif used when good balloons 
+                    explode. The feature I had the most fun implementing.
                 </p>
     
                 <div class="subheading mb-3">Algorithmic Discussion</div>
                 <p>
-                  In developing this game, I allowed my strong Object-Oriented Programming (OOP)
-                  tendencies to lead my algorithmic and technical decisions. The strongest example
-                  of this is in my (ideally abstract) Object class, shown below
+                  In developing this game, I allowed my strong Object-Oriented 
+                  Programming (OOP) tendencies to lead my algorithmic and 
+                  technical decisions. The strongest example of this is in my 
+                  (ideally abstract) Object class, shown below
                   (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/object.pde">object.pde</a>).
-                  This is a stubby container class. There is no functionality and it most probably hurts
-                  the overall runtime of the game. However, to myself and other OOP developers, the
-                  boost of understanding and organization seems very much worth it when handling
-                  the code. Understandability of the code is very much boosted by containers such as
-                  Object and its children,
+                  This is a stubby container class. There is no functionality 
+                  and it likely hurts the overall runtime of the game. However, 
+                  to myself and other OOP developers, the boost in 
+                  understanding and organization seems very much worth it when 
+                  handling the code. With containers such as Object and its children,
                   <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/balloon.pde">Balloon</a>
-                  and <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/slider.pde">Slider</a>.
+                  and <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/slider.pde">Slider</a>, larger code bases can be more readable and easier to digest.
                 </p>
 
                 <p>
@@ -201,12 +207,15 @@ class Object {
                 </p>
 
                 <p>
-                  From a computational perspective, a bottleneck is my collision testing. Since I
-                  am very much aware of the existence of this bottleneck in a majority of graphics
-                  programs, I wanted to put some time into building a spatial data structure, as
-                  mentioned above. My first approach, and the one which is currently still being
-                  used, is a brute force approach. My game loop checks during every frame for
-                  collisions between the slider and each balloon, shown in the code snippet below
+                  A computational bottleneck within my program is my 
+                  collision testing. Since I am very much aware of the 
+                  existence of this bottleneck in a majority of graphics
+                  programs, I wanted to put some time into building a spatial 
+                  data structure, as mentioned above. My first approach, and 
+                  the one which is currently still being used, is a brute force 
+                  approach. My game loop checks during every frame for 
+                  collisions between the slider and each balloon, shown in the 
+                  code snippet below
                   (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L57">
                     pop.pde lines 57-70</a>).
                 </p>
@@ -234,58 +243,66 @@ if (b.checkCollision(brick)) {
                 </p>
 
                 <p>
-                  After much thought and spending a good amount of time not only considering, but
-                  also attempting to integrate a spatial data structure, I decided on a gridding
-                  approach which would in a sense, mark which balloons were, at least partially,
-                  in which bins. After much work. I was able to accomplish this much. I created
+                  After much thought and spending a good amount of time not 
+                  only considering, but also attempting to integrate a spatial 
+                  data structure, I decided on a gridding approach which would 
+                  essentially mark which balloons overlapped with which bins. 
+                  After much work, I was able to accomplish this much. I created
                   a <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/grid.pde">
-                    Grid</a> which knew about which balloons overlapped with which GridCells.
-                    However, the more I thought about the complexity, the more I realized that
-                    there would not be a performance benefit over my brute force approach. Both
-                    methods required iterating over all of the balloons and for the grid approach,
-                    there would be extra computation once the grid was built. Because of time
-                    constraints and other responsibilities, I chose not to continue working with
-                    this gridding approach.
+                  Grid</a> which knew about which balloons overlapped with 
+                  which GridCells. However, the more I thought about the 
+                  complexity, the more I realized that there would not be a 
+                  performance benefit over my brute force approach. Both
+                  methods required iterating over all of the balloons and for 
+                  the grid approach, there would be extra computation once the 
+                  grid was built. Because of time constraints and other 
+                  responsibilities, I chose not to continue working with
+                  this gridding approach and kept my brute force calculations.
                 </p>
 
                 <p>
-                  If given more time, instead of using ArrayLists that shrink and grow forever,
-                  I would instead use fixed length arrays. ArrayLists, although fun, are not the
-                  most efficient because of their conveniently modifiable length. If a max number
-                  of balloons was decided upon and I made sure that balloons which were popped
-                  or which were lost respawned, therefore in essense living forever, I believe
-                  there would be more of a computational improvement than fully implementing
-                  and using a gridding system.
+                  If given more time, instead of using ArrayLists that shrink 
+                  and grow forever, I would instead use fixed length arrays. ArrayLists, although fun, are not the most efficient because 
+                  of their conveniently modifiable length. If a max number
+                  of balloons was decided upon and I made sure that popped and 
+                  lost balloons were respawned at the bottom of the screen, I 
+                  believe there would have been a greater computational 
+                  improvement than using a fully implemented gridding system.
                 </p>
 
                 <div class="subheading mb-3">Game Engine Analysis</div>
                 <p>
-                  Although Processing does a good job of being an accessible "gateway" into graphics,
-                  an aspect that would've saved me time from the beginning would be something
-                  akin to my Object class. Having a pre-built container which knew a bit about
-                  how it could be displayed/rendered would've expedited the first few things
-                  I did for this assignment, which was build and design my Object and Balloon classes.
+                  Although Processing does a good job of being an accessible 
+                  "gateway" into graphics, an aspect that would've saved me 
+                  time from the beginning would be something akin to my Object 
+                  class. Having a pre-built container which knew a bit about
+                  how it could be displayed/rendered would've expedited my 
+                  first few tasks for this assignment, which was build and 
+                  design my Object and Balloon classes.
                 </p>
 
                 <p>
-                  Another, more advanced addition, which would have nullified my earlier discussions
-                  about collision testing, would be some sort of pre-built collider which understood
-                  when it overlapped with other objects. Either this collider itself would already
-                  contain collision checking code or another object, a sort of collider manager,
-                  would contain the collision algorithms. The collider manager could then be the
-                  one that checks to see if it's colliders are overlapping. Since games all require
-                  the ability to know if two things are touching (be it if your mouse click landed
-                  in the right place or if your character's arrow was able to hit
-                  the enemy), a built-in collision system would be incredibly useful for developing
-                  games.
+                  Another, more advanced addition, which would have nullified my earlier discussions about collision testing, would be some 
+                  sort of pre-built collider which understood when it 
+                  overlapped with other objects. Either this collider itself 
+                  would already contain collision checking code or another 
+                  object, a collider manager, would contain the collision 
+                  algorithms. The collider manager could then be the
+                  one that checks to see if colliders are overlapping. Since 
+                  games all require the ability to know if two things are 
+                  touching (be it if your mouse click landed in the right place 
+                  or if your character's arrow was able to hit the enemy), a 
+                  built-in collision system would be incredibly useful for 
+                  developing games.
                 </p>
 
                 <p>
-                  In my game specifically, the state is stored within the global variables I declared
-                  within my
+                  In my game specifically, the state is stored within the 
+                  global variables I declared within my
                   <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/config.pde">config.pde</a>,
-                  as shown below. How these variables interact within my game loop are the core of
-                  how this game functions. My game loop can be broken down as follows
+                  as shown below. How these variables interact within my game 
+                  loop are the core of how this game functions. My game loop 
+                  can be broken down as follows
                   (<a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L23">
                   pop.pde lines 23-105</a>):
                   <ol>
@@ -363,13 +380,15 @@ int splashStart = 0;</code>
                 </p>
 
                 <p>
-                  During the entire game, and therefore during this game loop, Processing is checking for
-                  key press events. These asynchronously interrupt the game to enter the following
+                  During the entire game, and therefore during this game loop, 
+                  Processing is checking for key press events. These 
+                  asynchronously interrupt the game to enter the following 
                   function within
                   <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/action.pde#L5">
-                  action.pde</a>, lines 5-10. This asynchronous interruption triggers the slider to
-                  check to see if either the left or right arrow keys have been pressed so that
-                  the slider's position can be adjusted accordingly.
+                  action.pde</a>, lines 5-10. This asynchronous interruption 
+                  triggers the slider to check to see if either the left or 
+                  right arrow keys have been pressed so that the slider's 
+                  position can be adjusted accordingly.
                 </p>
 
                 <p>
@@ -388,22 +407,28 @@ void keyPressed() {
                 </p>
 
                 <p>
-                  The two big "non-moving pieces" are my balloons and animations ArrayLists. As I have already
-                  discussed the balloons and they seem fairly self-explanatory, I will wrap this report up
-                  by discussing my last feature: incorporating animations (i.e. displaying gifs). I looked
-                  to the Processing Tutorial page <a href="https://processing.org/examples/animatedsprite.html">
+                  The two big "non-moving pieces" are my balloons and 
+                  animations ArrayLists. Quite simply, my balloons list 
+                  contained all of my balloon objects. My animations list, 
+                  however, is more nuanced and was necessary for my last 
+                  feature: incorporating animations (i.e. displaying gifs). I 
+                  looked to the Processing Tutorial page <a href="https://processing.org/examples/animatedsprite.html">
                   Animated Sprite</a> for code and inspiration.
                 </p>
 
                 <p>
-                  I started by breaking my gifs into individual frames and storing them globally (popFrames
-                  and hotFrames above). When an event occurred which would warrant an animation (the slider
-                  colliding with a balloon) a new Animation object would be created at that location and
-                  told which frames it needed to display. Therefore, all I needed to do was keep track of
-                  which animations were still active drawing frames so that I could draw those frames to
-                  the screen. Once all of the frames had been displayed, I then deleted that Animation object.
-                  My animations array is therefore almost identical to my balloons array: both contained
-                  the active Balloons and Animations so that they could be iterated through and properly
+                  I started by breaking my gifs into individual frames and 
+                  storing them globally (popFrames and hotFrames above). When 
+                  an event occurred which would warrant an animation (the slider
+                  colliding with a balloon) a new Animation object would be 
+                  created at that location and told which frames it needed to 
+                  display. Therefore, all I needed to do was keep track of
+                  which animations were still active so that I could draw those 
+                  frames to the screen. Once all of the frames of that specific 
+                  gif had been displayed, I then deleted that Animation object.
+                  My animations array is therefore almost identical to my 
+                  balloons array: both contained the active Balloons and 
+                  Animations so that they could be iterated through and properly
                   rendered.
                 </p>
 
