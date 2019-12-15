@@ -573,15 +573,19 @@ void keyPressed() {
                   </p>
 
                   <p>
-                    One big area of confusion was what the Screen Position and Scene Depth nodes really represented. The online documentation on the nodes was helpful, but those extra steps are necessary if you wish to understand the underlying math.
+                    One big area of confusion was what the Screen Position and Scene Depth nodes really represented. The online documentation on the nodes was helpful, but those extra steps are necessary if you wish to understand the underlying math. In order to create a shader from scratch, you need to understand at least some of the underlying math. What comes to mind is the fog shader we discussed in class. I say "at least some" since there are often a number of hacks or simplications that can remove the more complicated steps, as we did in class. However, if none of the math was understood at all, it wouldn't be possible to create your own fog shader. This is not quite the case with Shader Graph which is both a plus and a minus.
                   </p>
 
                   <p>
                     <img src="img/8980/grass-sway-shader-graph.gif"
-                      id="final-fig3" class="img-fluid">
+                      id="final-fig4" class="img-fluid">
                   </p>
                   <p>
-                    <b>Figure 3:</b> 
+                    <b>Figure 4:</b> Capture of the Shader Graph editor for my complete grass sway shader. This is the result of following Brackeys' grass sway tutorial video.
+                  </p>
+
+                  <p>
+                    After working on the more simple shaders, I then tackled the grass sway shader. This tutorial excited me because of its use of vertex displacement and its overall complexity. This was another case where I struggled to fully comprehend what was happening in Shader Graph since there was some transformations into different spaces that I didn't comprehend. Going into it with an understanding of vertex displacement made it easy to understand which nodes were necessay at first, however, as I stated before, once I got to the math that I didn't understand, I did not find the nodes that helpful.
                   </p>
 
                   <div class="subheading mb-3">Procedural Mesh Generation</div>
@@ -624,13 +628,25 @@ void keyPressed() {
                     <li>
                       Brackeys: <a href="https://youtu.be/taMp1g1pBeE">"DISSOLVE using Unity Shader Graph"</a>
                       <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/NiOGWZXBg4Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/taMp1g1pBeE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       </p>
                     </li>
                     <li>
                       Brackeys: <a href="https://youtu.be/NiOGWZXBg4Y">"FORCE FIELD in Unity - SHADER GRAPH"</a>
                       <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/NiOGWZXBg4Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p>
+                    </li>
+                    <li>
+                      Brackeys: <a href="https://youtu.be/eJEpeUH1EMg">"MESH GENERATION in Unity - Basics"</a>
+                      <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/eJEpeUH1EMg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p>
+                    </li>
+                    <li>
+                      Brackeys: <a href="https://www.youtu.be/64NblGkAabk">"PROCEDURAL TERRAIN"</a>
+                      <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/64NblGkAabk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       </p>
                     </li>
                     <li>
@@ -638,23 +654,7 @@ void keyPressed() {
                       <p>
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       </p>
-
-                      <!-- <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/taMp1g1pBeE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                      </p> -->
                     </li>
-                    <!-- <li>
-                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
-                      <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                      </p>
-                    </li>
-                    <li>
-                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
-                      <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                      </p>
-                    </li> -->
                   </p>
 
                   <div class="subheading mb-3">Resources</div>
