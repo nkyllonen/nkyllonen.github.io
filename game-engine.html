@@ -585,12 +585,36 @@ void keyPressed() {
                   </p>
 
                   <p>
-                    After working on the more simple shaders, I then tackled the grass sway shader. This tutorial excited me because of its use of vertex displacement and its overall complexity. This was another case where I struggled to fully comprehend what was happening in Shader Graph since there was some transformations into different spaces that I didn't comprehend. Going into it with an understanding of vertex displacement made it easy to understand which nodes were necessay at first, however, as I stated before, once I got to the math that I didn't understand, I did not find the nodes that helpful.
+                    After working on the more simple shaders, I then tackled the grass sway shader. This tutorial excited me because of its use of vertex displacement and its overall complexity. This was a case where I didno't struggle to comprehend what was happening in Shader Graph once I gave it some thought. Going into it with an understanding of vertex displacement made it easy to understand which nodes were necessay and displayed a definite strength of Shader Graph.
                   </p>
 
                   <div class="subheading mb-3">Procedural Mesh Generation</div>
                   <p>
+                    After playing around with Shader Graph for a while, I saw another Brackeys tutorial about Mesh Generation and thought it sounded fun. After mucking around with a visual, node-based system for a while, it was refreshing to create some C# scripts and write some code. The tutorial walked through using Perlin Noise to generate pseudo random noise and easy create a terrain with somewhat realistic changes in height. With Unity's extensive libraries, it was as simple as making a single function call, shown below in Snippet 1. Unlike the tutorial, however, I made a new "noisiness" parameter which is available to the user. This parameter is what I am changing to get the effects shown below in Figure 4.
+                  </p>
 
+                  <p>
+                  <pre>
+<code class="C#" id="final-code1">
+// loop through and generate vertex positions
+for (int i = 0, z = 0; z <= zSize; z++)
+{
+    for (int x = 0; x <= xSize; x++)
+    {
+        // adjust noise so it's more noticeable
+        float height = Mathf.PerlinNoise(x * 0.3f, z * 0.3f) * noisiness;
+        vertices[i] = new Vector3(x, height, z);
+        i++;
+
+        // determine min and max heights
+        if (height < minHeight) minHeight = height;
+        if (height > maxHeight) maxHeight = height;
+    }
+}</code>
+                  </pre>
+                  </p>
+                  <p>
+                      <b>Snippet 1:</b> Calculating new mesh vertices using Perlin Noise.
                   </p>
 
                   <p>
@@ -598,21 +622,92 @@ void keyPressed() {
                       id="final-fig4" class="img-fluid">
                   </p>
                   <p>
-                    <b>Figure 4:</b> 
-                  </p>                  
-
-                  <div class="subheading mb-3">Putting it all Together</div>
-                  <p>
-
+                    <b>Figure 4:</b> Effects of adjusting the "noisiness" parameter to change the height values generated using Perlin Noise, as shown in Snippet 1 above.
                   </p>
 
-                  <div class="subheading mb-3">Using Unity</div>
+                  <!-- <p>
+                  
+                  </p> -->
+
+                  <div class="subheading mb-3">Putting it all Together and Future Work</div>
                   <p>
-                    Package juggling is one major difference between using your own custom engine and a large, publicly deployed game engine like Unity. A custom engine is very unlikely to have as many interdependent 
+                    After playing around with tutorials, I had a lot of trouble trying to see how I could combine everything into one cohesive project. After completing the grass sway tutorial, I had the thought to procedurally generated mesh and also place swaying grass along it, depending on the height of the mesh. Since the beginning of this project, I thought I had wanted to create a 2D game with essentially a camera fixed at a certain offset from the player. I thought maybe I could generate mesh as the player moves and add swaying grass for them to walk through, all while the player views the scene from a 2D perspective.
+                  </p>
+
+                  <p>
+                    I set out to work on this and, since the grass swaying needed to be implemented using the High Definition Render Pipeline, thought it only natural to continue to use it for this somewhat cohesive "game." However, importing my mesh generation from a project using the Lightweight Render Pipeline, did not work immediately. My vertices were being generated where I wanted them to be, but I had no triangles displaying. I knew my vertices were calculated correctly because of this very helpful debugging function Brackeys had implemented in their "PROCEDURAL TERRAIN in Unity! - Mesh Generation" video, shown below in Snippet 2.
+                  </p>
+
+                  <p>
+                    <pre>
+<code>
+private void OnDrawGizmos()
+{
+    // only draw if we have vertices
+    if (vertices == null)
+    {
+        return;
+    }
+
+    for (int i = 0; i < vertices.Length; i++)
+    {
+        Gizmos.DrawSphere(vertices[i], 0.1f);
+    }
+}</code>
+                    </pre>
+                  </p>
+                  <p>
+                      <b>Snippet 2:</b> Using OnDrawGizmos to place spheres at each of the generated vertices of the mesh.
+                  </p>
+
+                  <p>
+                    If my vertices were there, and I was setting the triangles of the mesh just as I did previously, why wasn't I seeing any triangles? After going through some more of the 2019.3 documentation on Mesh Filters, it turned out that for 2019.3, I also needed a Mesh Renderer in order to see the triangles of my mesh. But a Mesh Renderer required a material and therefore didn't allow me to apply a gradient to the vertices as I had done previously, following Brackeys' "MESH COLOR in Unity - Terrain Generation" tutorial. The simple blue to green to white gradient can be seen above in Figure 4. This gradient was simply applied by linearly interpolating between the heights of the vertices to determine where along the gradient that specific vertex fell.
+                  </p>
+
+                  <p>
+                    After abandoning the hope of coloring my generated mesh, my next steps were to place a player sphere that I could control and also to place grass on the mesh. I simply copied my player controller script from the Roll-a-Ball tutorial and now I had a player. But the grass bit seemed more difficult. I started with a somewhat silly idea of dropping the grass onto the terrain randomly to see how that would turn out. However, to allow physics-based behaviors, a Unity GameObject needs a rigid body component. Once I got the grass dropping at random locations, I saw that this was not at all the behavior that I wanted. They would tip over and roll about sometimes, but worst of all, they interacted with the player sphere, which had its own rigid body. The player wasn't allowed to go through the grass anymore because they were both physical rigid bodies and, as the name suggests, rigid bodies cannot pass through each other.
+                  </p>
+
+                  <p>
+                    Because of the amount of time I had left, and because of the need to complete this writeup, I decided to stop developing at this point, leaving much room for future work. A few items I wish to continue working on are as follows:
+                  </p>
+                  <ul>
+                    <li>
+                      Allow player to move through the grass clumps
+                      <ul>
+                        <li>either just passing through or applying its own vertex displacement to move the grass out of the way)</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Generate more mesh when the play reaches the edge of the current mesh it is on
+                      <ul>
+                        <li>I imagined a MeshManager of some kind that would use the vertices at the end of the current mesh when creating a new one, in order to seamlessly join the two</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Color the mesh
+                      <ul>
+                        <li>as explained above, because of the need of the Mesh Renderer to have a material to apply to the triangles, I was not able to color the vertices- there are possibly ways to do this by texturing the mesh with a custom texture</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Better player movement
+                      <ul>
+                        <li>currently, the movement is through the player being pushed by forces, but this movement isn't very conducive to a 2D game with the player rolling up and down hills because it's difficult to control precisely</li>
+                      </ul>
+                    </li>
+                  </ul>
+
+                  <div class="subheading mb-3">Verdict on Using Unity</div>
+                  <p>
+                    Package juggling and juggling versions was a pain. With such a popular, constantly developed engine like Unity, there are so many updates being pushed out that it can be very tempting to stick with an older version. This is a case where I feel as though I should not have jumped into 2019.3, although, I'm sure I would've had a whole new set of issues had I used a 2018 version. These issues are one major difference between using your own custom engine and a large, publicly deployed game engine like Unity. A custom engine is very unlikely to have such a high setup cost because of its size and the fact that it likely isn't as complex. Something I found very surprising about some of the errors I was receiving was missing functions or references to types that don't exist. I understand that Unity is expanding rapidly, but I was surprised at its lack of backward compatibility. However, once I realized that it must be that I had out of date packages, and I had updated them all, then things were fine.
+                  </p>
+                  <p>
+                    Overall, it was quite a pain to use Unity. It tries to be able to do so much, and it can do so much, but that is also a major downside. I honestly felt as though half of my hours were spent banging my head against versions and wondering why things where black or not showing up even though I had followed the tutorial. I will admit that Shader Graph was very fun and impressive, however somewhat slow on my laptop at times. I hadn't looked to see if this was possible, but I would very much like to see the shaders Shader Graph generated. It did not seem readily apparant that these were available, but I would hope that they are so that those of use that like to dig a little bit deeper can see the outcomes of playing with Shader Graph.
                   </p>
 
                   <div class="subheading mb-3">Tutorials</div>
-                  <p>
+                  <ul>
                     <li>
                       Roll-a-Ball Tutorial: <a href="https://learn.unity.com/project/roll-a-ball-tutorial">link</a>
                     </li>
@@ -638,6 +733,12 @@ void keyPressed() {
                       </p>
                     </li>
                     <li>
+                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
+                      <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p>
+                    </li>
+                    <li>
                       Brackeys: <a href="https://youtu.be/eJEpeUH1EMg">"MESH GENERATION in Unity - Basics"</a>
                       <p>
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/eJEpeUH1EMg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -650,17 +751,17 @@ void keyPressed() {
                       </p>
                     </li>
                     <li>
-                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
+                      Brackeys: <a href="https://youtu.be/lNyZ9K71Vhc">"MESH COLOR in Unity - Terrain Generation"</a>
                       <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/lNyZ9K71Vhc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       </p>
                     </li>
-                  </p>
-
+                  </ul>
+<!-- 
                   <div class="subheading mb-3">Resources</div>
                   <p>
 
-                  </p>
+                  </p> -->
               </div>
             </div>
           </div>
