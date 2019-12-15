@@ -544,19 +544,58 @@ void keyPressed() {
                   <p>
                     This is the point at which I found the Brackeys Youtube Channel. I landed upon their <a href="https://youtu.be/Ar9eIn4z6XE">"Basics of Shader Graph - Unity Tutorial"</a> video and after watching it, began following the steps that were laid out. However, this is when I ran into my first issues with the Unity Render Pipelines. As noted in the video, to use Shader Graph, you need the Lightweight Render Pipeline installed. This turned out to be a headache, especially when I found out that in order to get bloom, I needed to set up some Post Processing items. This was very frustrating, especially since I am using the latest version of Unity 2019, which is recent enough to warrant not much relevant online help. 
                   </p>
+                  <p>
+                    With the Lightweight Render Pipeline somewhat set up correctly, I was able to follow Brackeys' Basic Shader Graph tutorial as well as his dissolve tutorial. I also begin following his force field tutorial, but stopped part way because I realized that I needed to set up the High Definition Render Pipeline, since that was the tutorial setup.
+                  </p>
 
                   <p>
                     <img src="img/8980/spheres-movie.gif"
                       id="final-fig2" class="img-fluid">
                   </p>
                   <p>
-                    <b>Figure 2:</b> From left to right, the results of building my own dissolve, glowing, and force field shaders. The force field shader is incomplete.
+                    <b>Figure 2:</b> From left to right, the results of building my own dissolve, glowing, and force field shaders following Brackeys' dissolve, basic, and force field shader tutorials. The force field shader is incomplete.
+                  </p>
+
+                  <p>
+                    Using Shader Graph was quite nice. The visual format, with its nodes and connections, can be very straight forward. The biggest drawback I had was knowing what node that I wanted or needed. Since I was following tutorials, that wasn't a very great struggle, but I could imagine it being more than just a small hindrance when trying to make your own custom shader. Once you gain a good grasp of the available nodes, however, I feel as though this could be an even more helpful tool.
+                  </p>
+
+                  <p>
+                    The visual aspect is very helpful for a higher level understanding; for seeing the flow of data and how the pieces contribute towards the final effect. However, gaining a lower level understanding can be much more difficult because of the abstractions the nodes represent. When trying to follow along with the force field tutorial, I quickly got lost with the calculation needed to "detect" where the force field intersected with other objects in the scene. This was done as shown below in Figure 3.
+                  </p>
+
+                  <p>
+                    <img src="img/8980/brackeys-force-field-intersection.png"
+                      id="final-fig3" class="img-fluid">
+                  </p>
+                  <p>
+                    <b>Figure 3:</b> Snippet from Brackeys' FORCE FIELD in Unity - SHADER GRAPH tutorial video showing the necessary subractions to shade the object in relation to its distance to other objects in the scene.
+                  </p>
+
+                  <p>
+                    One big area of confusion was what the Screen Position and Scene Depth nodes really represented. The online documentation on the nodes was helpful, but those extra steps are necessary if you wish to understand the underlying math.
+                  </p>
+
+                  <p>
+                    <img src="img/8980/grass-sway-shader-graph.gif"
+                      id="final-fig3" class="img-fluid">
+                  </p>
+                  <p>
+                    <b>Figure 3:</b> 
                   </p>
 
                   <div class="subheading mb-3">Procedural Mesh Generation</div>
                   <p>
 
                   </p>
+
+                  <p>
+                    <img src="img/8980/mesh-generation-movie.gif"
+                      id="final-fig4" class="img-fluid">
+                  </p>
+                  <p>
+                    <b>Figure 4:</b> 
+                  </p>                  
 
                   <div class="subheading mb-3">Putting it all Together</div>
                   <p>
@@ -565,7 +604,7 @@ void keyPressed() {
 
                   <div class="subheading mb-3">Using Unity</div>
                   <p>
-
+                    Package juggling is one major difference between using your own custom engine and a large, publicly deployed game engine like Unity. A custom engine is very unlikely to have as many interdependent 
                   </p>
 
                   <div class="subheading mb-3">Tutorials</div>
@@ -583,23 +622,39 @@ void keyPressed() {
                       </p>
                     </li>
                     <li>
-                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"Basics of Shader Graph - Unity Tutorial"</a>
-                      <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                      </p>
-                    </li>
-                    <li>
                       Brackeys: <a href="https://youtu.be/taMp1g1pBeE">"DISSOLVE using Unity Shader Graph"</a>
                       <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/taMp1g1pBeE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/NiOGWZXBg4Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       </p>
                     </li>
                     <li>
                       Brackeys: <a href="https://youtu.be/NiOGWZXBg4Y">"FORCE FIELD in Unity - SHADER GRAPH"</a>
                       <p>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/NiOGWZXBg4Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                       </p>
                     </li>
+                    <li>
+                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
+                      <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p>
+
+                      <!-- <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/taMp1g1pBeE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p> -->
+                    </li>
+                    <!-- <li>
+                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
+                      <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p>
+                    </li>
+                    <li>
+                      Brackeys: <a href="https://youtu.be/L_Bzcw9tqTc">"GRASS SWAY in Unity - SHADER GRAPH"</a>
+                      <p>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/L_Bzcw9tqTc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </p>
+                    </li> -->
                   </p>
 
                   <div class="subheading mb-3">Resources</div>
