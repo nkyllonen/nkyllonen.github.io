@@ -11311,6 +11311,16 @@ p.lead {
   font-size: 1.5rem;
 }
 
+.figure {
+  display: inline-block;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .figure {
+    max-width: 540px;
+  }
+}
 #sideNav {
   padding-left: 1rem;
   padding-right: 1rem;

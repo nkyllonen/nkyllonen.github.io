@@ -57,15 +57,92 @@
             <section class="resume-section" id="hw1">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Balloon Pop Game</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">HW1 - Game from Scratch</h3>
-                            <div class="subheading mb-3">Source Code:</div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-grow-1 flex-row align-items-center">
+                            <h3 class="mb-0 me-4">HW1 - Game from Scratch</h3>
                             <div class="social-icons">
                                 <a class="social-icon" href="https://github.com/nkyllonen/8980-balloon-pop"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
                         <div class="flex-shrink-0"><span class="text-primary">September 2019</span></div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-between mb-5">
+                        <div class="d-flex flex-column figure">
+                            <img class="figure-img" id="hw1-fig1" src="assets/img/8980/hw1-typical.png" alt="Homework 1 example" />
+                            <div class="figure-caption">
+                                <p>
+                                    <b>Figure 1:</b>
+                                    A typical Level 1 screen.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="subheading mb-3">Gameplay / Game Design</div>
+                        <p>
+                            In this simple game, built in Processing, the player moves the green slider left and right to pop as many colorful balloons as possible and gain the most points. One point is gained for every good colorful balloon, while one point is lost for every evil black balloon that is popped. This score is presented along with the current level in the bottom left corner, as shown in
+                            <a href="#hw1-fig1">Figure 1</a>
+                            .
+                        </p>
+                        <p>
+                            As you gain points, you move onto more difficult levels. Currently, the levels increase one notch for every 10 points earned. Successive levels increase three of the game parameters: maximum balloon spawning speed, slider speed, and the chance a newly spawned balloon will be an evil balloon. Therefore, for every new level you face, not only are the balloons harder to pop and more likely to be evil, the slider is able to travel more quickly. This is the only power-up currently implemented. These values are adjusted as shown below (
+                            <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/pop.pde#L100">pop.pde lines 100-104</a>
+                            ).
+                        </p>
+                        <pre><code class="Processing" id="hw1-code1">// check score and update level
+level = score / 10 + 1;
+MAX_SPEED = 150 + level * 10;
+brick.speed = 5 + level;
+ENEMY_SPAWN_CHANCE = 0.05 + level * 0.05;</code></pre>
+                        <div class="figure-caption">
+                            <p>
+                                <b>Snippet 1:</b>
+                                Level-up parameter adjustments.
+                            </p>
+                        </div>
+                        <p>
+                            There were quite a few features I had in mind while developing this game. I added to them as I went, but from the beginning, I hashed out two feature lists: basic features and more farfetched features. These I placed into my Trello board, as shown in
+                            <a href="#hw1-fig2">Figure 2</a>
+                            and
+                            <a href="#hw1-fig3">Figure 3</a>
+                            .
+                        </p>
+                        <div class="d-flex flex-column figure">
+                            <img class="figure-img" id="hw1-fig2" src="assets/img/8980/hw1-basic-features.png" alt="Homework 1 basic features" />
+                            <div class="figure-caption">
+                                <p>
+                                    <b>Figure 2:</b>
+                                    My checklist of basic features.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column figure">
+                            <img class="figure-img" id="hw1-fig3" src="assets/img/8980/hw1-next-features.png" alt="Homework 1 next features" />
+                            <div class="figure-caption">
+                                <p>
+                                    <b>Figure 3:</b>
+                                    My checklist of more complex features.
+                                </p>
+                            </div>
+                        </div>
+                        <p>The biggest feature I tried to implement for this assignment was the use of a spatial data structure for collision testing (my first task within my "Next Steps" features list above). Despite the goal being to improve performance, after much thought and much work on implementation, I decided that the gameplay would not actually improve. Although I still wish to pursue this feature, other features that are listed above would've more easily accomplished the task of boosting gameplay, such as adding some sort of missiles or more complicated balloon movement.</p>
+                        <div class="d-flex flex-column figure">
+                            <img class="figure-img" id="hw1-fig4" src="assets/img/8980/hw1-pop-sparkles.gif" alt="Homework 1 sparkles gif" />
+                            <div class="figure-caption">
+                                <p>
+                                    <b>Figure 4:</b>
+                                    The sparkling gif used when good balloons explode. The feature I had the most fun implementing.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="subheading mb-3">Algorithmic Discussion</div>
+                        <p>
+                            In developing this game, I allowed my strong Object-Oriented Programming (OOP) tendencies to lead my algorithmic and technical decisions. The strongest example of this is in my (ideally abstract) Object class, shown below (
+                            <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/object.pde">object.pde</a>
+                            ). This is a stubby container class. There is no functionality and it likely hurts the overall runtime of the game. However, to myself and other OOP developers, the boost in understanding and organization seems very much worth it when handling the code. With containers such as Object and its children,
+                            <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/balloon.pde">Balloon</a>
+                            and
+                            <a href="https://github.com/nkyllonen/8980-balloon-pop/blob/master/pop/slider.pde">Slider</a>
+                            , larger code bases can be more readable and easier to digest.
+                        </p>
                     </div>
                 </div>
             </section>
