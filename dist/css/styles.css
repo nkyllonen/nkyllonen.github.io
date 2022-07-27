@@ -628,20 +628,6 @@ progress {
   color: #6c757d;
 }
 
-.img-small {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
-  height: auto;
-}
-
-@media (min-width: 576px) {
-  .img-small {
-    max-width: 500px;
-  }
-}
-
 .container,
 .container-fluid,
 .container-xxl,
