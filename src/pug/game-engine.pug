@@ -1,0 +1,97 @@
+doctype html
+html(lang='en')
+
+    head
+
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(name='description', content='')
+        meta(name='author', content='')
+
+        title Nikki Kyllonen's Portfolio
+
+        link(rel='icon', type='image/x-icon', href='assets/img/favicon.ico')
+
+        // Font Awesome icons (free version)
+        script(src='https://use.fontawesome.com/releases/v6.1.0/js/all.js', crossorigin='anonymous')
+
+        // Google fonts
+        link(href='https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i', rel='stylesheet', type='text/css')
+
+        // Core theme CSS (includes Bootstrap)
+        link(href='css/styles.css', rel='stylesheet')
+
+    body#page-top
+
+        // Navigation
+        nav#sideNav.navbar.navbar-expand-lg.navbar-dark.bg-primary.fixed-top
+            a.navbar-brand.js-scroll-trigger(href='#page-top')
+                span.d-block.d-lg-none Nikki Kyllonen
+                span.d-none.d-lg-block
+                    img.img-fluid.img-profile.rounded-circle.mx-auto.mb-2(src='assets/img/nikki_sm_square.jpg', alt='Profile picture')
+            button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarResponsive.collapse.navbar-collapse
+                ul.navbar-nav
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='#about') About
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='#hw1') Balloon Pop
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='#hw2') Baby Game Engine
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='#final') Unity Exploration
+
+        // Page Content
+        .container-fluid.p-0
+
+            // About
+            section#about.resume-section
+                .resume-section-content
+                    h1.mb-0
+                        | CSCI 8980
+                        span.text-primary Real-time Game Engine Technology
+                    .subheading.mb-5
+                        | Professor Stephen J. Guy · University of Minnesota, Twin Cities · Fall 2019
+                    h3
+                        | Course Description
+                    p.lead.mb-5
+                        | The technology driving modern video games has brought forth new breakthroughs in real-time graphics, simulation, and artificial intelligence (AI), and has become increasingly common in wide range of entertainment, robotics, and virtual/augmented reality applications. In this course, we will cover the key algorithmic techniques that have enabled this revolution, investigate the trade-offs and limitations inherent in these real-time approaches, and discuss open problems and current trends in the field. Topics discussed will include real-time techniques for: physically-based lighting simulation, artificial intelligence (AI), sound simulation, character animation, and large-scale rendering.
+                    h3
+                        | Course Work
+                    p.lead.mb-5
+                        | Students will participate in a combination of coding projects, student presentations, and class discussions. Coding projects will involve students writing their own real-time graphics, AI, and simulation code and integrate it into a broader framework. The course will take place in a computer lab, and substantial class time will be devoted to in-class programming. Classes are held in a computer lab, and course work will involve substantial in-class programming time with hands-on exploration of the course material. Additionally, students will be expected to present their projects to others in the class, and to provide substantial feedback and discussion of peer work.
+                    b
+                        | Who should enroll
+                    p.lead.mb-5
+                        | Students interested in real-time methods for computer simulation, interactive graphics, game programming, and AI.
+                    b
+                        | Prerequisites
+                    p.lead.mb-5
+                        | Experience in C++, data structures, using large code bases, and basic vector calculus (e.g., dot-products and gradients) is assumed. Previous experience in graphics programming helpful, but not strictly required.
+
+            hr.m-0
+
+            // HW1
+            section#hw1.resume-section
+                .resume-section-content
+                    h2.mb-5 Balloon Pop Game
+
+                    .d-flex.flex-column.flex-md-row.justify-content-between.mb-5
+                        .flex-grow-1
+                            h3.mb-0 HW1 - Game from Scratch
+                            .subheading.mb-3 Source Code:
+                            .social-icons
+                              a.social-icon(href='https://github.com/nkyllonen/8980-balloon-pop')
+                                  i.fab.fa-github
+                        .flex-shrink-0
+                            span.text-primary September 2019
+
+            hr.m-0
+
+        // Bootstrap core JS
+        script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js')
+
+        // Core theme JS
+        script(src='js/scripts.js')
